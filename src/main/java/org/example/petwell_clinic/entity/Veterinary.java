@@ -19,10 +19,10 @@ public class Veterinary {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private int veterinary_id;
-    private String veterinary_name;
-    private String veterinary_phone;
-    private String veterinary_mail;
-    private String veterinary_speciality;
+    private String name;
+    private String phone;
+    private String mail;
+    private String speciality;
 
     @OneToMany (mappedBy = "veterinary")
     private Set<Appointment> appointments = new HashSet<>();

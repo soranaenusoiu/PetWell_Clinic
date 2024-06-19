@@ -3,6 +3,9 @@ package org.example.petwell_clinic.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Time;
+import java.util.Date;
+
 @Entity
 @Table(name = "appointments")
 @Setter
@@ -16,12 +19,11 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private Integer appointment_id;
-    private String date;
-    private String time;
+    private Date date;
+    private Time time;
     private String reason;
     private String diagnosis;
     private String treatment;
-    private String invoice;
 
     @ManyToOne
     @JoinColumn(name = "pet_id")

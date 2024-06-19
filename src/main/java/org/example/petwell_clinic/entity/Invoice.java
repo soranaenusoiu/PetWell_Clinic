@@ -5,29 +5,24 @@ import lombok.*;
 
 import java.sql.Time;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "schedules")
+@Table(name = "invoices")
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Schedule {
+public class Invoice {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int schedule_id;
-    private Date date;
-    private Time start_time;
-    private Time end_time;
+    private float sum;
     private boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "vaterinary_id")
-    private Veterinary veterinary;
+    @OneToOne
+    @JoinColumn(name = "appointment_id")
+    private Appointment appointment;
 
 }

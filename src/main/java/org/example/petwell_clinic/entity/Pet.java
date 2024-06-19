@@ -21,9 +21,9 @@ public class Pet {
     private int pet_id;
     private String species;
     private String breed;
-    private String pet_name;
-    private int pet_age;
-    private double pet_weight;
+    private String name;
+    private int age;
+    private double weight;
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
