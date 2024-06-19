@@ -18,6 +18,7 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
+    private Long invoice_id;
     private float sum;
     private boolean status;
 

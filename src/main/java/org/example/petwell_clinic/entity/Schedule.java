@@ -20,7 +20,7 @@ public class Schedule {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int schedule_id;
+    private Long schedule_id;
     private Date date;
     private Time start_time;
     private Time end_time;

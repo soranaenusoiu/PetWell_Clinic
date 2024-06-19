@@ -18,7 +18,7 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Integer appointment_id;
+    private Long appointment_id;
     private Date date;
     private Time time;
     private String reason;

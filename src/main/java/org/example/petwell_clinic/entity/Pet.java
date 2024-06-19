@@ -18,7 +18,7 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int pet_id;
+    private Long pet_id;
     private String species;
     private String breed;
     private String name;

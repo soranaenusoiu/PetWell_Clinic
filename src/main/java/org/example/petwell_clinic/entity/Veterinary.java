@@ -18,7 +18,7 @@ public class Veterinary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private int veterinary_id;
+    private Long veterinary_id;
     private String name;
     private String phone;
     private String mail;
