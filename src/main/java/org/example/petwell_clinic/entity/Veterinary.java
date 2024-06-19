@@ -24,10 +24,10 @@ public class Veterinary {
     private String mail;
     private String speciality;
 
-    @OneToMany (mappedBy = "veterinary")
+    @OneToMany(mappedBy = "veterinary")
     private Set<Appointment> appointments = new HashSet<>();
 
-    @OneToMany (mappedBy = "veterinary")
+    @OneToMany(mappedBy = "veterinary")
     private Set<Schedule> schedules = new HashSet<>();
 
 }
