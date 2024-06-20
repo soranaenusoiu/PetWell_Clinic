@@ -10,10 +10,14 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/veterinary")
 public class VeterinaryController {
+
     private final VeterinaryService veterinaryService;
+
     public VeterinaryController (VeterinaryService veterinaryService) {
         this.veterinaryService=veterinaryService;
     }
+
+
     @PostMapping("/add")
     public void addCar(@RequestBody Veterinary veterinary){
         veterinaryService.addVeterinary(veterinary);
@@ -24,17 +28,7 @@ public class VeterinaryController {
         return veterinaryService.getAllVeterinary();
     }
 
-    @DeleteMapping("/deleteId/{veterinaryId}")
-    public void deleteVeterinaryById(@PathVariable(name = "veterinaryId") long id){
-        veterinaryService.deleteVeterinaryById(id);
-    }
-
-    @PutMapping("/update")
-    public void updateVeterinary(@RequestBody Veterinary veterinary) {
-        veterinaryService.updateVeterinaryByObject(veterinary);
-    }
-
-    @GetMapping("/getId/{veterinaryId}")
+    @GetMapping("/getById/{veterinaryId}")
     public Optional<Veterinary> getVeterinaryById(@PathVariable(name="veterinaryId") long id) {
         return veterinaryService.getVeterinaryByID(id);
     }
@@ -43,4 +37,15 @@ public class VeterinaryController {
     public Optional<Veterinary> getVeterinaryByName(@PathVariable(name="veterinaryName") String name){
         return veterinaryService.getVeterinaryByName(name);
     }
+
+    @PutMapping("/update")
+    public void updateVeterinary(@RequestBody Veterinary veterinary) {
+        veterinaryService.updateVeterinaryByObject(veterinary);
+    }
+
+    @DeleteMapping("/deleteId/{veterinaryId}")
+    public void deleteVeterinaryById(@PathVariable(name = "veterinaryId") long id){
+        veterinaryService.deleteVeterinaryById(id);
+    }
+
 }
