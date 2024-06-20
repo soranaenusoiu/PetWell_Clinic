@@ -13,13 +13,13 @@ public class VeterinaryController {
 
     private final VeterinaryService veterinaryService;
 
-    public VeterinaryController (VeterinaryService veterinaryService) {
-        this.veterinaryService=veterinaryService;
+    public VeterinaryController(VeterinaryService veterinaryService) {
+        this.veterinaryService = veterinaryService;
     }
 
 
     @PostMapping("/add")
-    public void addCar(@RequestBody Veterinary veterinary){
+    public void addCar(@RequestBody Veterinary veterinary) {
         veterinaryService.addVeterinary(veterinary);
     }
 
@@ -29,12 +29,12 @@ public class VeterinaryController {
     }
 
     @GetMapping("/getById/{veterinaryId}")
-    public Optional<Veterinary> getVeterinaryById(@PathVariable(name="veterinaryId") long id) {
+    public Optional<Veterinary> getVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
         return veterinaryService.getVeterinaryByID(id);
     }
 
     @GetMapping("getName/{veterinaryName}")
-    public Optional<Veterinary> getVeterinaryByName(@PathVariable(name="veterinaryName") String name){
+    public Optional<Veterinary> getVeterinaryByName(@PathVariable(name = "veterinaryName") String name) {
         return veterinaryService.getVeterinaryByName(name);
     }
 
@@ -44,7 +44,7 @@ public class VeterinaryController {
     }
 
     @DeleteMapping("/deleteId/{veterinaryId}")
-    public void deleteVeterinaryById(@PathVariable(name = "veterinaryId") long id){
+    public void deleteVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
         veterinaryService.deleteVeterinaryById(id);
     }
 
