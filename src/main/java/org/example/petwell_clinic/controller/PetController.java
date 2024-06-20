@@ -21,24 +21,23 @@ public class PetController {
     }
 
     @PostMapping("/add/{owner_id}")
-    public String addOwner(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long owner_id) {
-        return petService.addPet(pet, owner_id);
+    public String addOwner(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long ownerId) {
+        return petService.addPet(pet, ownerId);
     }
 
-    //?de ce apare acelasi on a loop pe Postman?
     @GetMapping("/get")
     public List<Pet> getPets() {
         return petService.getAllPets();
     }
 
     @PutMapping("/update/{pet_id}")
-    public String updatePet(@RequestBody Pet pet, @PathVariable(name = "pet_id") Long pet_id) {
-        return petService.updatePetByField(pet, pet_id);
+    public String updatePet(@RequestBody Pet pet, @PathVariable(name = "pet_id") Long petId) {
+        return petService.updatePetByField(pet, petId);
     }
 
     @DeleteMapping("/delete/{pet_id}")
-    public String deletePet(@PathVariable(name = "pet_id") Long pet_id) {
-        return petService.deletePet(pet_id);
+    public String deletePet(@PathVariable(name = "pet_id") Long petId) {
+        return petService.deletePet(petId);
     }
 
 

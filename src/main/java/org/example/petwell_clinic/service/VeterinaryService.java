@@ -1,22 +1,19 @@
 package org.example.petwell_clinic.service;
 
-import org.example.petwell_clinic.entity.Appointment;
-import org.example.petwell_clinic.entity.Schedule;
+import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.repository.VeterinaryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class VeterinaryService {
 
     private final VeterinaryRepository veterinaryRepository;
-
-    public VeterinaryService(VeterinaryRepository veterinaryRepository) {
-        this.veterinaryRepository = veterinaryRepository;
-    }
 
 
     public void addVeterinary(Veterinary veterinary) {
@@ -27,8 +24,8 @@ public class VeterinaryService {
         return veterinaryRepository.findAll();
     }
 
-    public Optional<Veterinary> getVeterinaryByID(long id) {
-        return (veterinaryRepository.findById(id));
+    public Veterinary getVeterinaryByID(long id) {
+        return veterinaryRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public Optional<Veterinary> getVeterinaryByName(String name) {
@@ -37,7 +34,7 @@ public class VeterinaryService {
     }
 
     public String updateVeterinaryByObject(Veterinary veterinary) {
-        Optional<Veterinary> veterinaryToUpdate = veterinaryRepository.findById(veterinary.getVeterinary_id());
+        Optional<Veterinary> veterinaryToUpdate = veterinaryRepository.findById(veterinary.getVeterinaryId());
         if (veterinaryToUpdate.isPresent()) {
             veterinaryRepository.save(veterinary);
             return ("veterinary updated");

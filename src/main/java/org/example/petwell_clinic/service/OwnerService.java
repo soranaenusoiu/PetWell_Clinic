@@ -1,7 +1,7 @@
 package org.example.petwell_clinic.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Owner;
-import org.example.petwell_clinic.entity.Pet;
 import org.example.petwell_clinic.repository.OwnerRepository;
 import org.example.petwell_clinic.repository.PetRepository;
 import org.springframework.stereotype.Service;
@@ -11,15 +11,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OwnerService {
 
 
-    private OwnerRepository ownerRepository;
-    private PetRepository petRepository;
+    private final OwnerRepository ownerRepository;
+    private final PetRepository petRepository;
 
-    public OwnerService(OwnerRepository ownerRepository) {
-        this.ownerRepository = ownerRepository;
-    }
 
     public String addOwner(Owner owner) {
         ownerRepository.save(owner);
@@ -44,8 +42,7 @@ public class OwnerService {
     }
 
     public Owner getOwnerByPhone(String phone) {
-        return ownerRepository.findAll().stream().filter(owner -> owner.getPhone().equals(phone))
-                .collect(Collectors.toList()).get(0);
+        return ownerRepository.findByPhone(phone);
     }
 
 
@@ -63,14 +60,14 @@ public class OwnerService {
         return "Owner not found";
     }
 
-    public String deleteOwner(Long owner_id) {
+    public String deleteOwner(Long ownerId) {
 //        Owner owner = ownerRepository.findById(id)
 //                .orElseThrow(() -> new RuntimeException("Owner not found"));
 //        ownerRepository.delete(owner);
 //        return "Owner deleted successfully";
 
         Optional<Owner> ownerToDelete = ownerRepository.findAll().stream()
-                .filter(owner -> owner.getOwner_id().equals(owner_id))
+                .filter(owner -> owner.getOwnerId().equals(ownerId))
                 .findFirst();
 
         if (ownerToDelete.isPresent()) {

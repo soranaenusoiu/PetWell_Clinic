@@ -1,5 +1,6 @@
 package org.example.petwell_clinic.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.service.VeterinaryService;
 import org.springframework.web.bind.annotation.*;
@@ -9,14 +10,10 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/veterinary")
+@RequiredArgsConstructor
 public class VeterinaryController {
 
     private final VeterinaryService veterinaryService;
-
-    public VeterinaryController(VeterinaryService veterinaryService) {
-        this.veterinaryService = veterinaryService;
-    }
-
 
     @PostMapping("/add")
     public void addCar(@RequestBody Veterinary veterinary) {
@@ -29,7 +26,7 @@ public class VeterinaryController {
     }
 
     @GetMapping("/getById/{veterinaryId}")
-    public Optional<Veterinary> getVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
+    public Veterinary getVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
         return veterinaryService.getVeterinaryByID(id);
     }
 
