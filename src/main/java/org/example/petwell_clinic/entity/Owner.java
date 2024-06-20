@@ -1,6 +1,8 @@
 package org.example.petwell_clinic.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,7 +27,9 @@ public class Owner {
     private String email;
     private String address;
 
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JsonManagedReference
     private Set<Pet> pets = new HashSet<>();
 
 

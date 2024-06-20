@@ -1,5 +1,6 @@
 package org.example.petwell_clinic.service;
 
+import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Owner;
 import org.example.petwell_clinic.entity.Pet;
 import org.example.petwell_clinic.repository.OwnerRepository;
@@ -11,15 +12,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PetService {
 
     private final OwnerRepository ownerRepository;
-    private PetRepository petRepository;
+    private final PetRepository petRepository;
 
-    public PetService(PetRepository petRepository, OwnerRepository ownerRepository) {
-        this.petRepository = petRepository;
-        this.ownerRepository = ownerRepository;
-    }
 
     public String addPet(Pet pet, Long owner_id) {
         Owner owner = ownerRepository.getReferenceById(owner_id);
@@ -58,7 +56,7 @@ public class PetService {
 
     public String deletePet(Long pet_id) {
         Optional<Pet> petToDelete = petRepository.findAll().stream()
-                .filter(pet -> pet.getPet_id().equals(pet_id))
+                .filter(pet -> pet.getPetId().equals(pet_id))
                 .findFirst();
 
         if (petToDelete.isPresent()) {
