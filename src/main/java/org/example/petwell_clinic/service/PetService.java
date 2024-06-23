@@ -35,11 +35,14 @@ public class PetService {
     }
 
 
-//    public List<String> getAllPetsByOwner() {
+//    public List<Pet> getAllPetsByOwner() {
 //        return petRepository.findAll().stream()
 //                .map(pet -> pet.getName())
 //                .collect(Collectors.toList());
 //    }
+    public Pet getPetsByOwner(Long ownerId) {
+        return petRepository.findByOwner(ownerId);
+    }
 
 
     public String updatePetByField(Pet pet, Long petId) {

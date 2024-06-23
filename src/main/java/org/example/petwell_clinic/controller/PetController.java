@@ -30,6 +30,11 @@ public class PetController {
         return petService.getAllPets();
     }
 
+    @GetMapping("/get/{owner_id}")
+    public Pet getPetsByOwner(@PathVariable(name = "owner_id") Long ownerId) {
+        return petService.getPetsByOwner(ownerId);
+    }
+
     @PutMapping("/update/{pet_id}")
     public String updatePet(@RequestBody Pet pet, @PathVariable(name = "pet_id") Long petId) {
         return petService.updatePetByField(pet, petId);
