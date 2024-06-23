@@ -24,7 +24,7 @@ public class InvoiceService {
     }
 
     public Invoice getInvoiceByOwnerId(Long ownerId) {
-        return invoiceRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
+        return invoiceRepository.findInvoiceById(ownerId);
     }
 
     public String updateInvoice(Long invoiceId, Invoice invoice) {
