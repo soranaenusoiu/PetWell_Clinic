@@ -26,7 +26,7 @@ public class InvoiceController {
     }
 
     @GetMapping("/getInvoiceByOwnerId/{owner_id}")
-    public Invoice getInvoiceByOwnerId(@PathVariable(name = "ownerId") Long ownerId) {
+    public Invoice getInvoiceByOwnerId(@PathVariable(name = "owner_id") Long ownerId) {
        return invoiceService.getInvoiceByOwnerId(ownerId);
     }
 
