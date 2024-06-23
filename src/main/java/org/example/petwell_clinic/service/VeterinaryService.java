@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +36,7 @@ public class VeterinaryService {
     public String updateVeterinaryByObject(Veterinary veterinary) {
         Veterinary veterinaryToUpdate = veterinaryRepository.findById(veterinary.getVeterinaryId())
                 .orElseThrow(NoSuchElementException::new);
-        veterinaryRepository.save(veterinary);
+        veterinaryRepository.save(veterinaryToUpdate);
         return ("veterinary updated");
 
     }
