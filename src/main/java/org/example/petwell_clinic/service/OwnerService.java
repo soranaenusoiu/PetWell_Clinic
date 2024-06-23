@@ -7,8 +7,7 @@ import org.example.petwell_clinic.repository.PetRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -46,35 +45,39 @@ public class OwnerService {
     }
 
 
-    public String updateOwnerByField(Owner owner, Long owner_id) {
-        Optional<Owner> ownerToUpdate = ownerRepository.findById(owner_id);
-        if (ownerToUpdate.isPresent()) {
-            ownerToUpdate.get().setName(owner.getName());
-            ownerToUpdate.get().setPhone(owner.getPhone());
-            ownerToUpdate.get().setAddress(owner.getAddress());
-            ownerToUpdate.get().setEmail(owner.getEmail());
+    public String updateOwnerByField(Owner owner, Long ownerId) {
+        Owner ownerToUpdate = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
+        ownerToUpdate.setName(owner.getName());
+        ownerToUpdate.setPhone(owner.getPhone());
+        ownerToUpdate.setAddress(owner.getAddress());
+        ownerToUpdate.setEmail(owner.getEmail());
+        ownerRepository.save(ownerToUpdate);
+        return "Owner updated successfully";
 
-            ownerRepository.save(ownerToUpdate.get());
-            return "Owner updated successfully";
-        }
-        return "Owner not found";
+
     }
+//
+
+//    public String deleteOwner(Long ownerId) {
+////        Owner owner = ownerRepository.findById(id)
+////                .orElseThrow(() -> new RuntimeException("Owner not found"));
+////        ownerRepository.delete(owner);
+////        return "Owner deleted successfully";
+//
+//        Optional<Owner> ownerToDelete = ownerRepository.findAll().stream()
+//                .filter(owner -> owner.getOwnerId().equals(ownerId))
+//                .findFirst();
+//
+//        if (ownerToDelete.isPresent()) {
+//            ownerRepository.delete(ownerToDelete.get());
+//            return "Owner deleted successfully";
+//        }
+//        return "Owner not found";
 
     public String deleteOwner(Long ownerId) {
-//        Owner owner = ownerRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("Owner not found"));
-//        ownerRepository.delete(owner);
-//        return "Owner deleted successfully";
-
-        Optional<Owner> ownerToDelete = ownerRepository.findAll().stream()
-                .filter(owner -> owner.getOwnerId().equals(ownerId))
-                .findFirst();
-
-        if (ownerToDelete.isPresent()) {
-            ownerRepository.delete(ownerToDelete.get());
-            return "Owner deleted successfully";
-        }
-        return "Owner not found";
+        Owner ownerToDelete = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
+        ownerRepository.delete(ownerToDelete);
+        return "Pet deleted successfully";
     }
 
 

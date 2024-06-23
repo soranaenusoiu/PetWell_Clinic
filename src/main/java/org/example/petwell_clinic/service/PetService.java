@@ -22,8 +22,8 @@ public class PetService {
     private final PetRepository petRepository;
 
 
-    public String addPet(Pet pet, Long owner_id) {
-        Owner owner = ownerRepository.getReferenceById(owner_id);
+    public String addPet(Pet pet, Long ownerId) {
+        Owner owner = ownerRepository.getReferenceById(ownerId);
         pet.setOwner(owner);
         petRepository.save(pet);
         return "Pet added successfully";
@@ -42,8 +42,8 @@ public class PetService {
 //    }
 
 
-    public String updatePetByField(Pet pet, Long pet_id) {
-        Pet petToUpdate = petRepository.findById(pet_id).orElseThrow(NoSuchElementException::new);
+    public String updatePetByField(Pet pet, Long petId) {
+        Pet petToUpdate = petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
         petToUpdate.setSpecies(pet.getSpecies());
         petToUpdate.setBreed(pet.getBreed());
         petToUpdate.setName(pet.getName());
@@ -53,8 +53,8 @@ public class PetService {
         return "Pet updated successfully";
     }
 
-    public String deletePet(Long pet_id) {
-        Pet petToDelete = petRepository.findById(pet_id).orElseThrow(NoSuchElementException::new);
+    public String deletePet(Long petId) {
+        Pet petToDelete = petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
         petRepository.delete(petToDelete);
         return "Pet deleted successfully";
     }
