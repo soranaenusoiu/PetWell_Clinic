@@ -28,6 +28,8 @@ public class Veterinary {
     private String speciality;
 
     @OneToMany(mappedBy = "veterinary")
+    @JsonIgnore
+    @JsonManagedReference
     private Set<Appointment> appointments = new HashSet<>();
 
     @OneToMany(mappedBy = "veterinary")
