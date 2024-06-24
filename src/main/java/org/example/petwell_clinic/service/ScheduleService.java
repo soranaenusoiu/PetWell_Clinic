@@ -44,19 +44,21 @@ public class ScheduleService {
     }
 
     public void deleteScheduleById(long id) {
-        scheduleRepository.deleteScheduleByScheduleIdEquals(id);
+        Schedule scheduleToDelete  = scheduleRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        scheduleRepository.delete(scheduleToDelete);
     }
 
     public List<Schedule> getAllSchedulesbyVeterinaryIdbyMonth(long veterinaryId, int month) {
         // aici se cpnstruiesc parametrii - id, inceput luna x, final luna x
+        Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
         LocalDateTime today, initLocalDataTime, endLocalDataTime;
         today= LocalDateTime.now();
-//        int currentMonth=today.getMonthValue();
+        int currentMonth=today.getMonthValue();
         int year=today.getYear();
+        if (currentMonth>month) {year++;}
         initLocalDataTime=LocalDateTime.of(year,month,1,0,0,0);
         endLocalDataTime=initLocalDataTime.plusMonths(1);
-      //  return scheduleRepository.findAllByVeterinariesIdAndStartTimeAfterAndEndTimeBefore
-      //          (veterinaryId, initLocalDataTime, endLocalDataTime);
-        return null;
+        return scheduleRepository.findSchedulesByVeterinaryEqualsAndStartTimeAfterAndStopTimeBefore
+                (veterinary, initLocalDataTime, endLocalDataTime);
     }
 }

@@ -26,7 +26,7 @@ public class ScheduleController {
 //        scheduleService.addSchedule1(schedule, veterinaryId);
 //    }
 
-    @DeleteMapping("deleteId{scheduleId}")
+    @DeleteMapping("deleteId/{scheduleId}")
     public void deleteScheduleById(@PathVariable(name = "scheduleId") long id) {
         scheduleService.deleteScheduleById(id);
     }
@@ -34,6 +34,12 @@ public class ScheduleController {
     @GetMapping("/getById/{scheduleId}")
     public Schedule getScheduleById(@PathVariable(name="scheduleId") long scheduleId) {
         return scheduleService.getScheduleById(scheduleId);
+    }
+
+    @GetMapping("/getByVetByMonth/{veterinaryId}/{month}")
+    public List<Schedule> getSchedulebyVetByMonth(@PathVariable(name="veterinaryId") long veterinaryId,
+                                                  @PathVariable(name="month") int month) {
+        return scheduleService.getAllSchedulesbyVeterinaryIdbyMonth(veterinaryId, month);
     }
 
 }
