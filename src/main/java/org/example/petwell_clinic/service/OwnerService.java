@@ -44,6 +44,9 @@ public class OwnerService {
         return ownerRepository.findByPhone(phone);
     }
 
+    public Owner getOwnerById(Long ownerId) {
+        return ownerRepository.findById(ownerId).get();
+    }
 
     public String updateOwnerByField(Owner owner, Long ownerId) {
         Owner ownerToUpdate = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);

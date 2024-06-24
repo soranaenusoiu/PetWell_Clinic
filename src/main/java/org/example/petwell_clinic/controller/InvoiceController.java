@@ -30,9 +30,9 @@ public class InvoiceController {
        return invoiceService.getInvoiceByOwnerId(ownerId);
     }
 
-    @PutMapping("/update/{invoice_id}")
-    public String updateInvoice(@RequestBody Invoice invoice, @PathVariable(name = "invoice_id") Long invoiceId) {
-        return invoiceService.updateInvoice(invoiceId, invoice);
+    @PutMapping("/pay/{invoice_id}")
+    public String payInvoice(@PathVariable(name = "invoice_id") Long invoiceId) {
+        return invoiceService.payInvoice(invoiceId);
     }
 
 }
