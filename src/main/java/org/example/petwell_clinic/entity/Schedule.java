@@ -1,12 +1,11 @@
 package org.example.petwell_clinic.entity;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Time;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Table(name = "schedules")
@@ -19,15 +18,14 @@ public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="schedule_id")
+    private Long scheduleId;
 
-    private Long schedule_id;
-    private Date date;
-    private Time start_time;
-    private Time end_time;
-    private boolean status;
+    private LocalDateTime startTime;
+    private LocalDateTime stopTime;
 
     @ManyToOne
-    @JoinColumn(name = "vaterinary_id")
+    @JoinColumn(name = "veterinary_id")
     private Veterinary veterinary;
 
 }

@@ -3,11 +3,11 @@ package org.example.petwell_clinic.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
-@Table(name = "appointments")
+@Table(name="appointments")
 @Setter
 @Getter
 @AllArgsConstructor
@@ -17,10 +17,11 @@ public class Appointment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="appointement_id")
+    private Long appointmentId;
 
-    private Long appointment_id;
-    private Date date;
-    private Time time;
+    private LocalDateTime initTime;
+    private LocalDateTime endTime;
     private String reason;
     private String diagnosis;
     private String treatment;

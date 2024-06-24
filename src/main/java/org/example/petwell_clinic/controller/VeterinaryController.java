@@ -15,7 +15,7 @@ public class VeterinaryController {
     private final VeterinaryService veterinaryService;
 
     @PostMapping("/add")
-    public void addCar(@RequestBody Veterinary veterinary) {
+    public void addVeterinary(@RequestBody Veterinary veterinary) {
         veterinaryService.addVeterinary(veterinary);
     }
 
