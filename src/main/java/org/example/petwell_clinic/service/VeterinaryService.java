@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,27 +27,24 @@ public class VeterinaryService {
         return veterinaryRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public Optional<Veterinary> getVeterinaryByName(String name) {
-        return (veterinaryRepository.findAll().stream().filter(veterinary -> veterinary.getName().equals(name))).findFirst();
-///  de corectat
+    public Veterinary getVeterinaryByName(String name) {
+//        return (veterinaryRepository.findAll().stream().filter(veterinary -> veterinary.getName().equals(name))).findFirst()
+//                .orElseThrow(NoSuchElementException::new);
+        return veterinaryRepository.findVeterinaryByName(name);
     }
 
     public String updateVeterinaryByObject(Veterinary veterinary) {
-        Optional<Veterinary> veterinaryToUpdate = veterinaryRepository.findById(veterinary.getVeterinaryId());
-        if (veterinaryToUpdate.isPresent()) {
-            veterinaryRepository.save(veterinary);
-            return ("veterinary updated");
-        }
-        return ("veterinary not found");
+        Veterinary veterinaryToUpdate = veterinaryRepository.findById(veterinary.getVeterinaryId())
+                .orElseThrow(NoSuchElementException::new);
+        veterinaryRepository.save(veterinaryToUpdate);
+        return ("veterinary updated");
+
     }
 
     public String deleteVeterinaryById(long id) {
-        Optional<Veterinary> veterinaryToDelete = veterinaryRepository.findById(id);
-        if (veterinaryToDelete.isPresent()) {
-            veterinaryRepository.deleteById(id);
-            return ("veterinary deleted");
-        }
-        return ("veterinary not found");
+        Veterinary veterinaryToDelete = veterinaryRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        veterinaryRepository.delete(veterinaryToDelete);
+        return ("veterinary deleted");
     }
 
 }

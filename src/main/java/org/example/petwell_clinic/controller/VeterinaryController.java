@@ -6,7 +6,6 @@ import org.example.petwell_clinic.service.VeterinaryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/veterinary")
@@ -30,8 +29,8 @@ public class VeterinaryController {
         return veterinaryService.getVeterinaryByID(id);
     }
 
-    @GetMapping("getName/{veterinaryName}")
-    public Optional<Veterinary> getVeterinaryByName(@PathVariable(name = "veterinaryName") String name) {
+    @GetMapping("getByName/{veterinaryName}")
+    public Veterinary getVeterinaryByName(@PathVariable(name = "veterinaryName") String name) {
         return veterinaryService.getVeterinaryByName(name);
     }
 
