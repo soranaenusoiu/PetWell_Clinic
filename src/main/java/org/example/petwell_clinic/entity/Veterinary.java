@@ -1,5 +1,7 @@
 package org.example.petwell_clinic.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +31,8 @@ public class Veterinary {
     private Set<Appointment> appointments = new HashSet<>();
 
     @OneToMany(mappedBy = "veterinary")
+    @JsonIgnore
+    @JsonManagedReference
     private Set<Schedule> schedules = new HashSet<>();
 
 }

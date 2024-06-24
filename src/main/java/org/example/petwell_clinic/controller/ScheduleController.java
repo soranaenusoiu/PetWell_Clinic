@@ -13,15 +13,27 @@ import java.util.List;
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @PostMapping("/add")
-    public void addSchedule(@RequestBody Schedule schedule) {
-        scheduleService.addSchedule(schedule);
+    @PostMapping("/add/{veterinaryId}/{startTime}/{stopTime}")
+    public void addSchedule(
+            @PathVariable(name="veterinaryId") long veterinaryId ,
+            @PathVariable(name="startTime") String startTime,
+            @PathVariable(name="stopTime") String stopTime) {
+        scheduleService.addSchedule(veterinaryId, startTime, stopTime);
     }
+
+//    @PostMapping("/add1/{veterinaryId}")
+//    public void addSchedule1(@RequestBody Schedule schedule, @PathVariable(name="veterinaryId") long veterinaryId) {
+//        scheduleService.addSchedule1(schedule, veterinaryId);
+//    }
 
     @DeleteMapping("deleteId{scheduleId}")
     public void deleteScheduleById(@PathVariable(name = "scheduleId") long id) {
         scheduleService.deleteScheduleById(id);
     }
 
+    @GetMapping("/getById/{scheduleId}")
+    public Schedule getScheduleById(@PathVariable(name="scheduleId") long scheduleId) {
+        return scheduleService.getScheduleById(scheduleId);
+    }
 
 }
