@@ -40,8 +40,8 @@ public class PetService {
 //                .map(pet -> pet.getName())
 //                .collect(Collectors.toList());
 //    }
-    public Pet getPetsByOwner(Owner ownerId) {
-        return petRepository.findPetsByOwner(ownerId);
+    public Pet getPetsByOwner(Owner owner) {
+        return petRepository.findPetsByOwner(owner);
     }
 
 
