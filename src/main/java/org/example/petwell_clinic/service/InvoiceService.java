@@ -24,13 +24,12 @@ public class InvoiceService {
     }
 
     public Invoice getInvoiceByOwnerId(Long ownerId) {
-        return invoiceRepository.findInvoiceById(ownerId);
+        return invoiceRepository.findInvoiceByInvoiceId(ownerId);
     }
 
-    public String updateInvoice(Long invoiceId, Invoice invoice) {
+    public String payInvoice(Long invoiceId) {
         Invoice existingInvoice = invoiceRepository.findById(invoiceId).orElseThrow(NoSuchElementException::new);
-        existingInvoice.setSum(invoice.getSum());
-        existingInvoice.setStatus(invoice.isStatus());
+        existingInvoice.setStatus(true);
         invoiceRepository.save(existingInvoice);
         return "Invoice updated successfully";
     }

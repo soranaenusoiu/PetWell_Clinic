@@ -1,5 +1,6 @@
 package org.example.petwell_clinic.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Owner;
 import org.example.petwell_clinic.entity.Pet;
 import org.example.petwell_clinic.service.OwnerService;
@@ -8,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/pet")
+
 public class PetController {
 
     private final OwnerService ownerService;
@@ -32,7 +35,8 @@ public class PetController {
 
     @GetMapping("/get/{owner_id}")
     public Pet getPetsByOwner(@PathVariable(name = "owner_id") Long ownerId) {
-        return petService.getPetsByOwner(ownerId);
+        Owner owner = ownerService.getOwnerById(ownerId);
+        return petService.getPetsByOwner(owner);
     }
 
     @PutMapping("/update/{pet_id}")
