@@ -45,7 +45,7 @@ public class OwnerService {
     }
 
     public Owner getOwnerById(Long ownerId) {
-        return ownerRepository.findById(ownerId).get();
+        return ownerRepository.findByOwnerId(ownerId);
     }
 
     public String updateOwnerByField(Owner owner, Long ownerId) {

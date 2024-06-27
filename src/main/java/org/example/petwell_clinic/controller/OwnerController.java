@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/owner")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OwnerController {
 
     private final OwnerService ownerService;

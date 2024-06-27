@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/appointment")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AppointmentController {
     private final AppointmentService appointmentService;
 

@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/schedule")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ScheduleController {
     private final ScheduleService scheduleService;
 

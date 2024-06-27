@@ -20,7 +20,7 @@ public class VeterinaryController {
         veterinaryService.addVeterinary(veterinary);
     }
 
-    @GetMapping()
+    @GetMapping("/getAll")
     public List<Veterinary> getAllVeterinary() {
         return veterinaryService.getAllVeterinary();
     }

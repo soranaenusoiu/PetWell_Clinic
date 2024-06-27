@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/invoice")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class InvoiceController {
 
     private final InvoiceService invoiceService;

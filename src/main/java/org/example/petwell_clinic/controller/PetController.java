@@ -12,16 +12,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pet")
-
+@RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PetController {
 
     private final OwnerService ownerService;
-    private PetService petService;
+    private final PetService petService;
 
-    public PetController(PetService petService, OwnerService ownerService) {
-        this.petService = petService;
-        this.ownerService = ownerService;
-    }
+//    public PetController(PetService petService, OwnerService ownerService) {
+//        this.petService = petService;
+//        this.ownerService = ownerService;
+//    }
 
     @PostMapping("/add/{owner_id}")
     public String addOwner(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long ownerId) {
