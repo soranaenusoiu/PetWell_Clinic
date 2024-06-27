@@ -20,7 +20,7 @@ public class Veterinary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="veterinary_id")
-    private Long veterinaryId;
+    private Long id;
 
     private String name;
     private String phone;

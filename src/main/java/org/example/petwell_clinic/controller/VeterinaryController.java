@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/veterinary")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class VeterinaryController {
 
     private final VeterinaryService veterinaryService;
@@ -19,12 +20,12 @@ public class VeterinaryController {
         veterinaryService.addVeterinary(veterinary);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public List<Veterinary> getAllVeterinary() {
         return veterinaryService.getAllVeterinary();
     }
 
-    @GetMapping("/getById/{veterinaryId}")
+    @GetMapping("/id/{veterinaryId}")
     public Veterinary getVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
         return veterinaryService.getVeterinaryByID(id);
     }

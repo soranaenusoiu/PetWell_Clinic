@@ -34,7 +34,7 @@ public class VeterinaryService {
     }
 
     public String updateVeterinaryByObject(Veterinary veterinary) {
-        Veterinary veterinaryToUpdate = veterinaryRepository.findById(veterinary.getVeterinaryId())
+        Veterinary veterinaryToUpdate = veterinaryRepository.findById(veterinary.getId())
                 .orElseThrow(NoSuchElementException::new);
         veterinaryRepository.save(veterinaryToUpdate);
         return ("veterinary updated");
