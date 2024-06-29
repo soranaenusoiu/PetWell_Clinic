@@ -34,11 +34,15 @@ public class VeterinaryService {
     }
 
     public String updateVeterinaryByObject(Veterinary veterinary) {
+        System.out.println(veterinary);
         Veterinary veterinaryToUpdate = veterinaryRepository.findById(veterinary.getId())
                 .orElseThrow(NoSuchElementException::new);
+        veterinaryToUpdate.setName(veterinary.getName());
+        veterinaryToUpdate.setMail(veterinary.getMail());
+        veterinaryToUpdate.setPhone(veterinary.getPhone());
+        veterinaryToUpdate.setSpeciality(veterinary.getSpeciality());
         veterinaryRepository.save(veterinaryToUpdate);
         return ("veterinary updated");
-
     }
 
     public String deleteVeterinaryById(long id) {
