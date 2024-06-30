@@ -80,7 +80,7 @@ public class OwnerService {
     public String deleteOwner(Long ownerId) {
         Owner ownerToDelete = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
         ownerRepository.delete(ownerToDelete);
-        return "Pet deleted successfully";
+        return "Owner deleted successfully";
     }
 
 
