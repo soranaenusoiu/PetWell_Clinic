@@ -25,7 +25,7 @@ public class PetController {
 //    }
 
     @PostMapping("/add/{owner_id}")
-    public String addOwner(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long ownerId) {
+    public String addPet(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long ownerId) {
         return petService.addPet(pet, ownerId);
     }
 
@@ -34,10 +34,14 @@ public class PetController {
         return petService.getAllPets();
     }
 
-    @GetMapping("/get/{owner_id}")
-    public Pet getPetsByOwner(@PathVariable(name = "owner_id") Long ownerId) {
-        Owner owner = ownerService.getOwnerById(ownerId);
-        return petService.getPetsByOwner(owner);
+//    @GetMapping("/get/{owner_id}")
+//    public Pet getPetsByOwner(@PathVariable(name = "owner_id") Long ownerId) {
+//        Owner owner = ownerService.getOwnerById(ownerId);
+//        return petService.getPetsByOwner(owner);
+//    }
+     @GetMapping("/get_by_name")
+     public List<Pet> getPetsByOwner(@RequestParam String name) {
+         return petService.getPetsByOwner(name);
     }
 
     @PutMapping("/update/{pet_id}")

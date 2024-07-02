@@ -5,14 +5,12 @@ import org.example.petwell_clinic.entity.Owner;
 import org.example.petwell_clinic.entity.Pet;
 import org.example.petwell_clinic.repository.OwnerRepository;
 import org.example.petwell_clinic.repository.PetRepository;
-import org.hibernate.ObjectNotFoundException;
-import org.springframework.data.crossstore.ChangeSetPersister;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +38,8 @@ public class PetService {
 //                .map(pet -> pet.getName())
 //                .collect(Collectors.toList());
 //    }
-    public Pet getPetsByOwner(Owner owner) {
-        return petRepository.findPetsByOwner(owner);
+    public List<Pet> getPetsByOwner(String name) {
+        return (List<Pet>) petRepository.findPetsByOwner_Name(name);
     }
 
 

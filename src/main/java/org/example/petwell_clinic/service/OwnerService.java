@@ -48,6 +48,10 @@ public class OwnerService {
         return ownerRepository.findByOwnerId(ownerId);
     }
 
+    public Owner getOwnerByName(String name) {
+        return  ownerRepository.findByName(name);
+    }
+
     public String updateOwnerByField(Owner owner, Long ownerId) {
         Owner ownerToUpdate = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
         ownerToUpdate.setName(owner.getName());

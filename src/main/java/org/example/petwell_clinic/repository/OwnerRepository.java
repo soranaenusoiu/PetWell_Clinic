@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface OwnerRepository extends JpaRepository<Owner, Long> {
     Owner findByPhone(String phone);
     Owner findByOwnerId(long ownerId);
+    Owner findByName(String name);
 }
