@@ -20,29 +20,28 @@ public class VeterinaryController {
         veterinaryService.addVeterinary(veterinary);
     }
 
-    @GetMapping("/getAll")
-    public List<Veterinary> getAllVeterinary() {
-        return veterinaryService.getAllVeterinary();
-    }
-
-    @GetMapping("/id/{veterinaryId}")
-    public Veterinary getVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
-        return veterinaryService.getVeterinaryByID(id);
-    }
-
     @GetMapping("getByName/{veterinaryName}")
     public Veterinary getVeterinaryByName(@PathVariable(name = "veterinaryName") String name) {
         return veterinaryService.getVeterinaryByName(name);
+    }
+
+//    @GetMapping("getById/{veterinaryId}")
+//    public Veterinary getVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
+//        return veterinaryService.getVeterinaryByID(id);
+//    }
+
+    @GetMapping("/getAll")
+    public List<Veterinary> getAllVeterinary() {
+        return veterinaryService.getAllVeterinary();
     }
 
     @PutMapping("/update")
     public void updateVeterinary(@RequestBody Veterinary veterinary) {
         veterinaryService.updateVeterinaryByObject(veterinary);
     }
-
-    @DeleteMapping("/deleteId/{veterinaryId}")
+    
+    @DeleteMapping("/deleteById/{veterinaryId}")
     public void deleteVeterinaryById(@PathVariable(name = "veterinaryId") long id) {
         veterinaryService.deleteVeterinaryById(id);
     }
-
 }

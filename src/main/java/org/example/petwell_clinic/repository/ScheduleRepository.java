@@ -12,4 +12,5 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
    // Schedule deleteScheduleByScheduleIdEquals(Long scheduleId);
     List<Schedule> findSchedulesByVeterinaryEqualsAndStartTimeAfterAndStopTimeBefore
           (Veterinary veterinary, LocalDateTime startTime, LocalDateTime endTime);
+
 }

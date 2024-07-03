@@ -17,35 +17,16 @@ public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
     private final VeterinaryRepository veterinaryRepository;
 
-    public void addSchedule(Long veterinaryId, String startTime, String stopTime) {
-        Schedule schedule = new Schedule();
-        Veterinary veterinary=veterinaryRepository.getReferenceById(veterinaryId);
-        schedule.setVeterinary(veterinary);
-//        schedule.setStartTime(LocalDateTime.of(2024,6,7,12,12));
-//        schedule.setStopTime(LocalDateTime.of(2024,6,7,14,12));
-        schedule.setStartTime(LocalDateTime.parse(startTime));
-        schedule.setStopTime(LocalDateTime.parse(stopTime));
+    public void addSchedule(Schedule schedule) {
         scheduleRepository.save(schedule);
     }
 
-//    public void addSchedule1(Schedule schedule, Long veterinaryId) {
-////        Schedule schedule = new Schedule();
-//        Veterinary veterinary=veterinaryRepository.getReferenceById(veterinaryId);
-//        schedule.setVeterinary(veterinary);
-////        schedule.setStartTime(LocalDateTime.of(2024,6,7,12,12));
-////        schedule.setStopTime(LocalDateTime.of(2024,6,7,14,12));
-////        schedule.setStartTime(LocalDateTime.parse(startTime));
-////        schedule.setStopTime(LocalDateTime.parse(stopTime));
-//        scheduleRepository.save(schedule);
-//    }
+    public List<Schedule> getAllSchedule() {
+        return scheduleRepository.findAll();
+    }
 
     public Schedule getScheduleById(long id){
         return scheduleRepository.findById(id).orElseThrow(NoSuchElementException::new);
-    }
-
-    public void deleteScheduleById(long id) {
-        Schedule scheduleToDelete  = scheduleRepository.findById(id).orElseThrow(NoSuchElementException::new);
-        scheduleRepository.delete(scheduleToDelete);
     }
 
     public List<Schedule> getAllSchedulesbyVeterinaryIdbyMonth(long veterinaryId, int month) {
@@ -60,5 +41,20 @@ public class ScheduleService {
         endLocalDataTime=initLocalDataTime.plusMonths(1);
         return scheduleRepository.findSchedulesByVeterinaryEqualsAndStartTimeAfterAndStopTimeBefore
                 (veterinary, initLocalDataTime, endLocalDataTime);
+    }
+
+    public String updateScheduleyByObject(Schedule schedule) {
+        System.out.println(schedule);
+        Schedule scheduleToUpdate = scheduleRepository.findById(schedule.getId())
+                .orElseThrow(NoSuchElementException::new);
+        scheduleToUpdate.setStartTime(schedule.getStartTime());
+        scheduleToUpdate.setStopTime(schedule.getStartTime());
+        scheduleRepository.save(schedule);
+        return ("schedule updated");
+    }
+
+    public void deleteScheduleById(long id) {
+        Schedule scheduleToDelete  = scheduleRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        scheduleRepository.delete(scheduleToDelete);
     }
 }
