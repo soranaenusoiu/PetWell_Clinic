@@ -45,7 +45,7 @@ public class OwnerService {
     }
 
     public Owner getOwnerById(Long ownerId) {
-        return ownerRepository.findByOwnerId(ownerId);
+        return ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
     }
 
     public Owner getOwnerByName(String name) {

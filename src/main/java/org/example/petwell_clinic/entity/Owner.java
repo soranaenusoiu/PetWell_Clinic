@@ -20,7 +20,8 @@ public class Owner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long ownerId;
+    @Column(name="owner_id")
+    private Long id;
 
     private String name;
     private String phone;
