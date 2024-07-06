@@ -18,12 +18,9 @@ public class OwnerService {
     private final PetRepository petRepository;
 
 
-    public String addOwner(Owner owner) {
+    public void addOwner(Owner owner) {
         ownerRepository.save(owner);
-        return "Owner added successfully";
-
     }
-
 //    public String addPetToOwner(Long pet_id, Long owner_id) {
 //        Pet pet = petRepository.findById(pet_id)
 //                .orElseThrow(() -> new RuntimeException("Pet not found"));
@@ -52,18 +49,14 @@ public class OwnerService {
         return  ownerRepository.findByName(name);
     }
 
-    public String updateOwnerByField(Owner owner, Long ownerId) {
+    public void updateOwnerByField(Owner owner, Long ownerId) {
         Owner ownerToUpdate = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
         ownerToUpdate.setName(owner.getName());
         ownerToUpdate.setPhone(owner.getPhone());
         ownerToUpdate.setAddress(owner.getAddress());
         ownerToUpdate.setEmail(owner.getEmail());
         ownerRepository.save(ownerToUpdate);
-        return "Owner updated successfully";
-
-
     }
-
 
 //    public String deleteOwner(Long ownerId) {
 ////        Owner owner = ownerRepository.findById(id)
@@ -81,10 +74,9 @@ public class OwnerService {
 //        }
 //        return "Owner not found";
 
-    public String deleteOwner(Long ownerId) {
+    public void deleteOwner(Long ownerId) {
         Owner ownerToDelete = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
         ownerRepository.delete(ownerToDelete);
-        return "Owner deleted successfully";
     }
 
 

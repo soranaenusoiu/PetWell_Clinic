@@ -17,15 +17,13 @@ public class OwnerController {
     private final OwnerService ownerService;
 
     @PostMapping("/add")
-    public String addOwner(@RequestBody Owner owner) {
-        return ownerService.addOwner(owner);
+    public void addOwner(@RequestBody Owner owner) {
+        ownerService.addOwner(owner);
     }
-
 //    @PostMapping("/addPetToOwner")
 //    public String addPetToOwner(@RequestParam Long pet_id, @RequestParam Long owner_id) {
 //        return ownerService.addPetToOwner(pet_id, owner_id);
 //    }
-
 
     @GetMapping("/get")
     public List<Owner> getOwners() {
@@ -38,14 +36,13 @@ public class OwnerController {
     }
 
     @PutMapping("/update/{owner_id}")
-    public String updateOwner(@RequestBody Owner owner, @PathVariable(name = "owner_id") Long ownerId) {
-        return ownerService.updateOwnerByField(owner, ownerId);
+    public void updateOwner(@RequestBody Owner owner, @PathVariable(name = "owner_id") Long ownerId) {
+        ownerService.updateOwnerByField(owner, ownerId);
     }
 
-
     @DeleteMapping("/delete/{owner_id}")
-    public String deleteOwner(@PathVariable(name = "owner_id") Long ownerId) {
-        return ownerService.deleteOwner(ownerId);
+    public void deleteOwner(@PathVariable(name = "owner_id") Long ownerId) {
+        ownerService.deleteOwner(ownerId);
     }
 
 }

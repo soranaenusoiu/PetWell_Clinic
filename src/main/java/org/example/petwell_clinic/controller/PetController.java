@@ -25,8 +25,8 @@ public class PetController {
 //    }
 
     @PostMapping("/add/{owner_id}")
-    public String addPet(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long ownerId) {
-        return petService.addPet(pet, ownerId);
+    public void addPet(@RequestBody Pet pet, @PathVariable(name = "owner_id") Long ownerId) {
+        petService.addPet(pet, ownerId);
     }
 
     @GetMapping("/get")
@@ -45,13 +45,13 @@ public class PetController {
     }
 
     @PutMapping("/update/{pet_id}")
-    public String updatePet(@RequestBody Pet pet, @PathVariable(name = "pet_id") Long petId) {
-        return petService.updatePetByField(pet, petId);
+    public void updatePet(@RequestBody Pet pet, @PathVariable(name = "pet_id") Long petId) {
+        petService.updatePetByField(pet, petId);
     }
 
     @DeleteMapping("/delete/{pet_id}")
-    public String deletePet(@PathVariable(name = "pet_id") Long petId) {
-        return petService.deletePet(petId);
+    public void deletePet(@PathVariable(name = "pet_id") Long petId) {
+        petService.deletePet(petId);
     }
 
 
