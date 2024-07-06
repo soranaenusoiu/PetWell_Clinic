@@ -21,7 +21,7 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pet_id")
-    private Long petId;
+    private Long id;
 
     private String species;
     private String breed;
