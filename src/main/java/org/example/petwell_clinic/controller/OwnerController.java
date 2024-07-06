@@ -3,6 +3,7 @@ package org.example.petwell_clinic.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Owner;
+import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.service.OwnerService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,16 @@ public class OwnerController {
     @GetMapping("/getOwnerByPhone/{phone}")
     public Owner getOwnerByPhone(@PathVariable(name = "phone") String phone) {
         return ownerService.getOwnerByPhone(phone);
+    }
+
+    @GetMapping("getByName/{name}")
+    public Owner getOwnerByName(@PathVariable(name = "name") String name) {
+        return ownerService.getOwnerByName(name);
+    }
+
+    @GetMapping("getById/{owner_id}")
+    public Owner getOwnerById(@PathVariable(name = "owner_id") Long ownerId) {
+        return ownerService.getOwnerById(ownerId);
     }
 
     @PutMapping("/update/{owner_id}")
