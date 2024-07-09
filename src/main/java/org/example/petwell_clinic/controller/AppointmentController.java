@@ -14,18 +14,28 @@ import java.util.List;
 public class AppointmentController {
     private final AppointmentService appointmentService;
 
-    @PostMapping("/add/{petId}/{veterinaryId}/{startTime}/{stopTime}")
-    public void addAppointment( @RequestBody Appointment appointment,
-            @PathVariable(name="petId") long petId,
-            @PathVariable(name="veterinaryId") long veterinaryId ,
-            @PathVariable(name="startTime") String startTime,
-            @PathVariable(name="stopTime") String stopTime) {
-           appointmentService.addAppointment(appointment,petId,veterinaryId, startTime, stopTime);
+//    @PostMapping("/add/{petId}/{veterinaryId}/{startTime}/{stopTime}")
+//    public void addAppointment( @RequestBody Appointment appointment,
+//            @PathVariable(name="petId") long petId,
+//            @PathVariable(name="veterinaryId") long veterinaryId ,
+//            @PathVariable(name="startTime") String startTime,
+//            @PathVariable(name="stopTime") String stopTime) {
+//           appointmentService.addAppointment(appointment,petId,veterinaryId, startTime, stopTime);
+//    }
+
+    @PostMapping("/add")
+    public void addAppointment( @RequestBody Appointment appointment) {
+        appointmentService.addAppointment(appointment);
     }
 
     @GetMapping("/get/{veterinaryId}/{startTime}")
     public List<Appointment> getAppointmentsByVeterinaryIdByDay(@PathVariable(name="veterinaryId") long veterinaryId,
                                                                @PathVariable(name="startTime") String startTime) {
        return appointmentService.getAppointmentsByVeterinaryIdByDay(veterinaryId,startTime);
+    }
+
+    @GetMapping("/get/all")
+    public List<Appointment> getAllApointment() {
+        return appointmentService.getAllApointments();
     }
 }

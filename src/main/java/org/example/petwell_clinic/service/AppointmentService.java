@@ -23,13 +23,23 @@ public class AppointmentService {
     private final VeterinaryRepository veterinaryRepository;
     private final PetRepository petRepository;
 
-    public void addAppointment(Appointment  appointment, long petId, long veterinaryId, String initTime, String endTime){
-        Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
-        appointment.setVeterinary(veterinary);
-        Pet pet=petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
-        appointment.setPet(pet);
-        appointment.setInitTime(LocalDateTime.parse(initTime));
-        appointment.setEndTime(LocalDateTime.parse(endTime));
+//    public void addAppointment(Appointment  appointment, long petId, long veterinaryId, String initTime, String endTime){
+//        Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
+//        appointment.setVeterinary(veterinary);
+//        Pet pet=petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
+//        appointment.setPet(pet);
+//        appointment.setInitTime(LocalDateTime.parse(initTime));
+//        appointment.setEndTime(LocalDateTime.parse(endTime));
+//        appointmentRepository.save(appointment);
+//    }
+
+    public void addAppointment(Appointment  appointment){
+//        Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
+//        appointment.setVeterinary(veterinary);
+//        Pet pet=petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
+//        appointment.setPet(pet);
+//        appointment.setInitTime(LocalDateTime.parse(initTime));
+//        appointment.setEndTime(LocalDateTime.parse(endTime));
         appointmentRepository.save(appointment);
     }
 
@@ -58,5 +68,10 @@ public class AppointmentService {
         }
     }
 
+    public List<Appointment> getAllApointments(){
+        List<Appointment> appointments;
+        appointments= appointmentRepository.findAll();
+        return appointmentRepository.findAll();
+    }
 
 }

@@ -45,10 +45,9 @@ public class VeterinaryService {
         return ("veterinary updated");
     }
 
-    public String deleteVeterinaryById(long id) {
+    public void deleteVeterinaryById(long id) {
         Veterinary veterinaryToDelete = veterinaryRepository.findById(id).orElseThrow(NoSuchElementException::new);
         veterinaryRepository.delete(veterinaryToDelete);
-        return ("veterinary deleted");
     }
 
 }
