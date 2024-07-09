@@ -2,6 +2,7 @@ package org.example.petwell_clinic.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Owner;
+import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.repository.OwnerRepository;
 import org.example.petwell_clinic.repository.PetRepository;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,7 @@ public class OwnerService {
     public Owner getOwnerByPhone(String phone) {
         return ownerRepository.findByPhone(phone);
     }
+
 
     public Owner getOwnerById(Long ownerId) {
         return ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
