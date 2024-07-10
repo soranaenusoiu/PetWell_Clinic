@@ -12,4 +12,10 @@ import java.util.List;
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
     List<Appointment> findAppointmentByVeterinaryEqualsAndInitTimeAfterAndEndTimeBefore(
             Veterinary veterinary, LocalDateTime  initTime, LocalDateTime endTime);
+//    Boolean existsAppointmentsByVeterinaryIdAndEndTimeBetween (Long veterinaryId, LocalDateTime initTime, LocalDateTime endTime);
+//    Boolean existsAppointmentsByVeterinaryIdAndInitTimeBetween(Long veterinaryId, LocalDateTime initTime, LocalDateTime endTime);
+//    Boolean existsAppointmentsByVeterinaryIdAndInitTimeBeforeAndEndTimeAfter(Long veterinaryId, LocalDateTime initTime, LocalDateTime endTime);
+    Boolean existsAppointmentByVeterinaryIdAndInitTimeAfterOrVeterinaryIdAndEndTimeBefore(Long veterinary_id, LocalDateTime initTime, Long veterinary_id2, LocalDateTime endTime);
+
+
 }

@@ -1,5 +1,6 @@
 package org.example.petwell_clinic.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Appointment;
 import org.example.petwell_clinic.entity.Pet;
@@ -23,40 +24,35 @@ public class AppointmentService {
     private final VeterinaryRepository veterinaryRepository;
     private final PetRepository petRepository;
 
-//    public void addAppointment(Appointment  appointment, long petId, long veterinaryId, String initTime, String endTime){
-//        Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
-//        appointment.setVeterinary(veterinary);
-//        Pet pet=petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
-//        appointment.setPet(pet);
-//        appointment.setInitTime(LocalDateTime.parse(initTime));
-//        appointment.setEndTime(LocalDateTime.parse(endTime));
-//        appointmentRepository.save(appointment);
-//    }
 
-    public void addAppointment(Appointment  appointment){
-//        Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
-//        appointment.setVeterinary(veterinary);
-//        Pet pet=petRepository.findById(petId).orElseThrow(NoSuchElementException::new);
-//        appointment.setPet(pet);
-//        appointment.setInitTime(LocalDateTime.parse(initTime));
-//        appointment.setEndTime(LocalDateTime.parse(endTime));
-        appointmentRepository.save(appointment);
+    public void addAppointment(Appointment appointment) {
+        if (
+                appointmentRepository.existsAppointmentByVeterinaryIdAndInitTimeAfterOrVeterinaryIdAndEndTimeBefore(
+                        appointment.getVeterinary().getId(), appointment.getEndTime(),appointment.getVeterinary().getId(), appointment.getInitTime())
+//                appointmentRepository.existsAppointmentsByVeterinaryIdAndInitTimeBeforeAndEndTimeAfter(appointment.getVeterinary().getId(), appointment.getInitTime(), appointment.getEndTime()) ||
+//                appointmentRepository.existsAppointmentsByVeterinaryIdAndInitTimeBetween(appointment.getVeterinary().getId(), appointment.getInitTime(), appointment.getEndTime()) ||
+//                appointmentRepository.existsAppointmentsByVeterinaryIdAndEndTimeBetween(appointment.getVeterinary().getId(), appointment.getInitTime(), appointment.getEndTime())
+        )
+            throw new RuntimeException("Appointments are intersecting ");
+        else
+            appointmentRepository.save(appointment);
+
     }
 
     // lista ordonata dupa timpul de start a intervalelor programate
-    public List<Appointment> getAppointmentsByVeterinaryIdByDay(long veterinaryId, String startTime){
+    public List<Appointment> getAppointmentsByVeterinaryIdByDay(long veterinaryId, String startTime) {
         List<Appointment> appointments;
         Veterinary veterinary;
-        LocalDateTime startDateTime,initDay, endDay;
-        startDateTime=LocalDateTime.parse(startTime);
-        veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
-        int year=startDateTime.getYear();
-        int month=startDateTime.getMonthValue();
-        int day=startDateTime.getDayOfMonth();
-        initDay=LocalDateTime.of(year,month,day,0,0,0);
-        endDay=initDay.plusDays(1);
-        appointments= appointmentRepository.findAppointmentByVeterinaryEqualsAndInitTimeAfterAndEndTimeBefore(
-                veterinary, initDay,endDay);
+        LocalDateTime startDateTime, initDay, endDay;
+        startDateTime = LocalDateTime.parse(startTime);
+        veterinary = veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
+        int year = startDateTime.getYear();
+        int month = startDateTime.getMonthValue();
+        int day = startDateTime.getDayOfMonth();
+        initDay = LocalDateTime.of(year, month, day, 0, 0, 0);
+        endDay = initDay.plusDays(1);
+        appointments = appointmentRepository.findAppointmentByVeterinaryEqualsAndInitTimeAfterAndEndTimeBefore(
+                veterinary, initDay, endDay);
         Collections.sort(appointments, new AppointmentComparator());
         return appointments;
     }
@@ -68,10 +64,21 @@ public class AppointmentService {
         }
     }
 
-    public List<Appointment> getAllApointments(){
+    public List<Appointment> getAllApointments() {
         List<Appointment> appointments;
-        appointments= appointmentRepository.findAll();
+        appointments = appointmentRepository.findAll();
         return appointmentRepository.findAll();
     }
+
+
+    public void updateAppointmentByObject(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
+
+    public void deleteAppointmentById(long id) {
+        Appointment appointmentToDelete = appointmentRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        appointmentRepository.delete(appointmentToDelete);
+    }
+
 
 }

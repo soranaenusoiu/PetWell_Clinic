@@ -2,6 +2,7 @@ package org.example.petwell_clinic.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Appointment;
+import org.example.petwell_clinic.entity.Schedule;
 import org.example.petwell_clinic.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +14,6 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AppointmentController {
     private final AppointmentService appointmentService;
-
-//    @PostMapping("/add/{petId}/{veterinaryId}/{startTime}/{stopTime}")
-//    public void addAppointment( @RequestBody Appointment appointment,
-//            @PathVariable(name="petId") long petId,
-//            @PathVariable(name="veterinaryId") long veterinaryId ,
-//            @PathVariable(name="startTime") String startTime,
-//            @PathVariable(name="stopTime") String stopTime) {
-//           appointmentService.addAppointment(appointment,petId,veterinaryId, startTime, stopTime);
-//    }
 
     @PostMapping("/add")
     public void addAppointment( @RequestBody Appointment appointment) {
@@ -38,4 +30,17 @@ public class AppointmentController {
     public List<Appointment> getAllApointment() {
         return appointmentService.getAllApointments();
     }
+
+
+    @PutMapping("/update")
+    public void updateAppointment(@RequestBody Appointment appointment) {
+        appointmentService.updateAppointmentByObject(appointment);
+    }
+
+    @DeleteMapping("/deleteById/{appointmentId}")
+    public void deleteAppointmentById(@PathVariable(name = "appointmentId") long id) {
+        appointmentService.deleteAppointmentById(id);
+    }
+
+
 }

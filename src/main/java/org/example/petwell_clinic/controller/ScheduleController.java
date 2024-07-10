@@ -1,7 +1,9 @@
 package org.example.petwell_clinic.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.petwell_clinic.entity.Appointment;
 import org.example.petwell_clinic.entity.Schedule;
+import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.service.ScheduleService;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,10 +37,12 @@ public class ScheduleController {
         return scheduleService.getAllSchedulesbyVeterinaryIdbyMonth(veterinaryId, month);
     }
 
+
     @PutMapping("/update")
-    public void updateSchedule(@RequestBody Schedule schedule) {
-        scheduleService.updateScheduleyByObject(schedule);
+    public void updateAppointment(@RequestBody Schedule schedule) {
+        scheduleService.updateScheduleByObject(schedule);
     }
+
 
     @DeleteMapping("/deleteById/{scheduleId}")
     public void deleteScheduleById(@PathVariable(name = "scheduleId") long id) {

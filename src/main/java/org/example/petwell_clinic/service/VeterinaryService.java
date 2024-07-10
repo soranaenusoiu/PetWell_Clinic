@@ -28,21 +28,11 @@ public class VeterinaryService {
     }
 
     public Veterinary getVeterinaryByName(String name) {
-//        return (veterinaryRepository.findAll().stream().filter(veterinary -> veterinary.getName().equals(name))).findFirst()
-//                .orElseThrow(NoSuchElementException::new);
         return veterinaryRepository.findVeterinaryByName(name);
     }
 
-    public String updateVeterinaryByObject(Veterinary veterinary) {
-        System.out.println(veterinary);
-        Veterinary veterinaryToUpdate = veterinaryRepository.findById(veterinary.getId())
-                .orElseThrow(NoSuchElementException::new);
-        veterinaryToUpdate.setName(veterinary.getName());
-        veterinaryToUpdate.setMail(veterinary.getMail());
-        veterinaryToUpdate.setPhone(veterinary.getPhone());
-        veterinaryToUpdate.setSpeciality(veterinary.getSpeciality());
-        veterinaryRepository.save(veterinaryToUpdate);
-        return ("veterinary updated");
+    public void updateVeterinaryByObject(Veterinary veterinary) {
+        veterinaryRepository.save(veterinary);
     }
 
     public void deleteVeterinaryById(long id) {

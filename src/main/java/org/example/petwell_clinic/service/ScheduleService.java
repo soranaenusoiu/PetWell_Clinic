@@ -43,14 +43,8 @@ public class ScheduleService {
                 (veterinary, initLocalDataTime, endLocalDataTime);
     }
 
-    public String updateScheduleyByObject(Schedule schedule) {
-        System.out.println(schedule);
-        Schedule scheduleToUpdate = scheduleRepository.findById(schedule.getId())
-                .orElseThrow(NoSuchElementException::new);
-        scheduleToUpdate.setStartTime(schedule.getStartTime());
-        scheduleToUpdate.setStopTime(schedule.getStartTime());
+    public void updateScheduleByObject(Schedule schedule) {
         scheduleRepository.save(schedule);
-        return ("schedule updated");
     }
 
     public void deleteScheduleById(long id) {
