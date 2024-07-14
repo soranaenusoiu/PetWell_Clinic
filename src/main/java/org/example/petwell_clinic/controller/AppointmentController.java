@@ -6,6 +6,7 @@ import org.example.petwell_clinic.entity.Schedule;
 import org.example.petwell_clinic.service.AppointmentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -26,9 +27,16 @@ public class AppointmentController {
        return appointmentService.getAppointmentsByVeterinaryIdByDay(veterinaryId,startTime);
     }
 
+    @GetMapping("/getfree/{veterinaryId}/{dataDay}")
+    public List<Appointment> getFreeAppointmentsByVeterinaryByDaY(@PathVariable(name="veterinaryId") long veterinaryId,
+                                                                @PathVariable(name="dataDay") String dataDay) {
+        return appointmentService.getFreeAppointmentsByVeterinaryByDaY(veterinaryId, dataDay);
+    }
+
+
     @GetMapping("/get/all")
-    public List<Appointment> getAllApointment() {
-        return appointmentService.getAllApointments();
+    public List<Appointment> getAllAppointment() {
+        return appointmentService.getAllAppointments();
     }
 
 

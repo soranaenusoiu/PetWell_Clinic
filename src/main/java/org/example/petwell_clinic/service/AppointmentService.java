@@ -1,34 +1,23 @@
 package org.example.petwell_clinic.service;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Appointment;
-import org.example.petwell_clinic.entity.Pet;
 import org.example.petwell_clinic.entity.Schedule;
-import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.repository.AppointmentRepository;
-import org.example.petwell_clinic.repository.PetRepository;
-import org.example.petwell_clinic.repository.VeterinaryRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
-    private final VeterinaryRepository veterinaryRepository;
-    private final PetRepository petRepository;
-
+    private final ScheduleService scheduleService;
 
     public void addAppointment(Appointment appointment) {
         if (
-                appointmentRepository.existsAppointmentByVeterinaryIdAndInitTimeAfterOrVeterinaryIdAndEndTimeBefore(
-                        appointment.getVeterinary().getId(), appointment.getEndTime(),appointment.getVeterinary().getId(), appointment.getInitTime())
+                appointmentRepository.existsAppointmentsByVeterinaryIdAndInitTimeBeforeAndAndEndTimeAfter(appointment.getVeterinary().getId(), appointment.getEndTime(), appointment.getInitTime())
 //                appointmentRepository.existsAppointmentsByVeterinaryIdAndInitTimeBeforeAndEndTimeAfter(appointment.getVeterinary().getId(), appointment.getInitTime(), appointment.getEndTime()) ||
 //                appointmentRepository.existsAppointmentsByVeterinaryIdAndInitTimeBetween(appointment.getVeterinary().getId(), appointment.getInitTime(), appointment.getEndTime()) ||
 //                appointmentRepository.existsAppointmentsByVeterinaryIdAndEndTimeBetween(appointment.getVeterinary().getId(), appointment.getInitTime(), appointment.getEndTime())
@@ -36,24 +25,19 @@ public class AppointmentService {
             throw new RuntimeException("Appointments are intersecting ");
         else
             appointmentRepository.save(appointment);
-
     }
 
-    // lista ordonata dupa timpul de start a intervalelor programate
     public List<Appointment> getAppointmentsByVeterinaryIdByDay(long veterinaryId, String startTime) {
-        List<Appointment> appointments;
-        Veterinary veterinary;
         LocalDateTime startDateTime, initDay, endDay;
         startDateTime = LocalDateTime.parse(startTime);
-        veterinary = veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
         int year = startDateTime.getYear();
         int month = startDateTime.getMonthValue();
         int day = startDateTime.getDayOfMonth();
         initDay = LocalDateTime.of(year, month, day, 0, 0, 0);
         endDay = initDay.plusDays(1);
-        appointments = appointmentRepository.findAppointmentByVeterinaryEqualsAndInitTimeAfterAndEndTimeBefore(
-                veterinary, initDay, endDay);
-        Collections.sort(appointments, new AppointmentComparator());
+        List<Appointment> appointments = appointmentRepository.findAppointmentsByVeterinaryIdAndInitTimeAfterAndEndTimeBefore(
+                veterinaryId, initDay, endDay);
+        appointments.sort(new AppointmentComparator());
         return appointments;
     }
 
@@ -64,9 +48,32 @@ public class AppointmentService {
         }
     }
 
-    public List<Appointment> getAllApointments() {
-        List<Appointment> appointments;
-        appointments = appointmentRepository.findAll();
+
+    public List<Appointment> getFreeAppointmentsByVeterinaryByDaY(long veterinaryId, String dataDay) {
+        List<Schedule> schedules = new ArrayList<>();
+        List<Schedule> daySchedules = new ArrayList<>();
+        List<Appointment> appointments = new ArrayList<>();
+        List<Appointment> freeAppointments = new ArrayList<>();
+        LocalDateTime dataWork = LocalDateTime.parse(dataDay);
+        schedules = scheduleService.getAllSchedulesbyVeterinaryIdbyMonth(veterinaryId, dataWork.getMonthValue());
+        daySchedules = schedules.stream().filter(sch -> sch.getStartTime().getDayOfYear() == dataWork.getDayOfYear()).toList();
+        appointments = getAppointmentsByVeterinaryIdByDay(veterinaryId, dataDay);
+        for (Schedule daySchedule : daySchedules) {
+            Appointment appointmentToAdd = new Appointment();
+            appointmentToAdd.setInitTime(daySchedule.getStartTime());
+            for (Appointment dayAppointment : appointments) {
+                appointmentToAdd.setEndTime(dayAppointment.getInitTime());
+                freeAppointments.add(appointmentToAdd);
+                appointmentToAdd = new Appointment();
+                appointmentToAdd.setInitTime(dayAppointment.getEndTime());
+            }
+            appointmentToAdd.setEndTime(daySchedule.getStopTime());
+            freeAppointments.add(appointmentToAdd);
+        }
+        return freeAppointments;
+    }
+
+    public List<Appointment> getAllAppointments() {
         return appointmentRepository.findAll();
     }
 
@@ -79,6 +86,4 @@ public class AppointmentService {
         Appointment appointmentToDelete = appointmentRepository.findById(id).orElseThrow(NoSuchElementException::new);
         appointmentRepository.delete(appointmentToDelete);
     }
-
-
 }

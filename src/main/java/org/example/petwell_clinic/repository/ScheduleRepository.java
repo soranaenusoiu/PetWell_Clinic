@@ -10,6 +10,5 @@ import java.util.List;
 
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
     List<Schedule> findSchedulesByVeterinaryEqualsAndStartTimeAfterAndStopTimeBefore
-          (Veterinary veterinary, LocalDateTime startTime, LocalDateTime endTime);
-
+          (Veterinary veterinary, LocalDateTime startTime, LocalDateTime stopTime);
 }
