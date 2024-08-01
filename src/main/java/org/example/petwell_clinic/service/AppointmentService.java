@@ -55,7 +55,7 @@ public class AppointmentService {
         List<Appointment> appointments = new ArrayList<>();
         List<Appointment> freeAppointments = new ArrayList<>();
         LocalDateTime dataWork = LocalDateTime.parse(dataDay);
-        schedules = scheduleService.getAllSchedulesbyVeterinaryIdbyMonth(veterinaryId, dataWork.getMonthValue());
+        schedules = scheduleService.getAllSchedulesByVeterinaryIdByMonth(veterinaryId, dataWork.getMonthValue());
         daySchedules = schedules.stream().filter(sch -> sch.getStartTime().getDayOfYear() == dataWork.getDayOfYear()).toList();
         appointments = getAppointmentsByVeterinaryIdByDay(veterinaryId, dataDay);
         for (Schedule daySchedule : daySchedules) {

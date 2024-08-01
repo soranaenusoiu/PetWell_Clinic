@@ -29,7 +29,7 @@ public class ScheduleService {
         return scheduleRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Schedule> getAllSchedulesbyVeterinaryIdbyMonth(long veterinaryId, int month) {
+    public List<Schedule> getAllSchedulesByVeterinaryIdByMonth(long veterinaryId, int month) {
         // aici se cpnstruiesc parametrii - id, inceput luna x, final luna x
         Veterinary veterinary=veterinaryRepository.findById(veterinaryId).orElseThrow(NoSuchElementException::new);
         LocalDateTime today, initLocalDataTime, endLocalDataTime;
