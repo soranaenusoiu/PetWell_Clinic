@@ -14,10 +14,8 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class OwnerService {
 
-
     private final OwnerRepository ownerRepository;
     private final PetRepository petRepository;
-
 
     public void addOwner(Owner owner) {
         ownerRepository.save(owner);

@@ -21,10 +21,6 @@ public class OwnerController {
     public void addOwner(@RequestBody Owner owner) {
         ownerService.addOwner(owner);
     }
-//    @PostMapping("/addPetToOwner")
-//    public String addPetToOwner(@RequestParam Long pet_id, @RequestParam Long owner_id) {
-//        return ownerService.addPetToOwner(pet_id, owner_id);
-//    }
 
     @GetMapping("/get")
     public List<Owner> getOwners() {
