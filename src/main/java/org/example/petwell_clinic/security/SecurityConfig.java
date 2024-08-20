@@ -3,14 +3,20 @@ package org.example.petwell_clinic.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.core.userdetails.User;
 //import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.sql.DataSource;
 
@@ -29,11 +35,11 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(configurer ->
                         configurer
-//                        .requestMatchers(HttpMethod.GET, "/veterinary", "/pet", "/owner", "/appointement", "/schedule").hasRole("USER")
-                                .requestMatchers(HttpMethod.GET, "/veterinary/**", "/pet/**", "/owner/**", "/appointement/**", "/schedule/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.POST, "/pet/**", "/owner/**", "/appointement/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.PUT, "/pet/**", "/owner/**", "/appointement/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.DELETE,"/pet/**", "/owner/**", "/appointement/**").hasRole("USER")
+//                        .requestMatchers(HttpMethod.GET, "/veterinary", "/pet", "/owner", "/appointment", "/schedule").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/veterinary/**", "/pet/**", "/owner/**", "/appointment/**", "/schedule/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.POST, "/pet/**", "/owner/**", "/appointment/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.PUT, "/pet/**", "/owner/**", "/appointment/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.DELETE,"/pet/**", "/owner/**", "/appointment/**").hasRole("USER")
 
                                 .requestMatchers(HttpMethod.POST, "/veterinary/add", "/schedule/add").hasRole("ADMINISTRATOR")
                                 .requestMatchers(HttpMethod.PUT, "/veterinary/update", "/schedule/update").hasRole("ADMINISTRATOR")
