@@ -7,17 +7,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/veterinary")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class VeterinaryController {
 
+    @RequiredArgsConstructor
+    public static class NewVeterinary {
+        public Veterinary veterinary;
+        public String password;
+    }
+
     private final VeterinaryService veterinaryService;
 
     @PostMapping("/add")
-    public void addVeterinary(@RequestBody Veterinary veterinary) {
-        veterinaryService.addVeterinary(veterinary);
+    public void addVeterinary(@RequestBody NewVeterinary newVeterinary) {
+        veterinaryService.addVeterinary(newVeterinary.veterinary, newVeterinary.password);
     }
 
     @GetMapping("getByName/{veterinaryName}")

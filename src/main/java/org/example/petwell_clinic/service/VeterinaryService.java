@@ -1,8 +1,11 @@
 package org.example.petwell_clinic.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.petwell_clinic.entity.User;
 import org.example.petwell_clinic.entity.Veterinary;
+import org.example.petwell_clinic.repository.UsersRepository;
 import org.example.petwell_clinic.repository.VeterinaryRepository;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +16,13 @@ import java.util.NoSuchElementException;
 public class VeterinaryService {
 
     private final VeterinaryRepository veterinaryRepository;
+    private final UsersRepository usersRepository;
 
-
-    public void addVeterinary(Veterinary veterinary) {
+    public void addVeterinary(Veterinary veterinary, String password) {
         veterinaryRepository.save(veterinary);
+        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+        usersRepository.save(new User(veterinary.getMail(), "{bcrypt}" + pw_hash, true));
+
     }
 
     public List<Veterinary> getAllVeterinary() {
