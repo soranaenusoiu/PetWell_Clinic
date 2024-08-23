@@ -18,11 +18,10 @@ public class VeterinaryService {
     private final VeterinaryRepository veterinaryRepository;
     private final UsersRepository usersRepository;
 
-    public void addVeterinary(Veterinary veterinary, String password) {
+    public void addVeterinary(Veterinary veterinary, String password, String authority) {
         veterinaryRepository.save(veterinary);
         String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
-        usersRepository.save(new User(veterinary.getMail(), "{bcrypt}" + pw_hash, true));
-
+        usersRepository.save(new User(veterinary.getMail(), "{bcrypt}" + pw_hash, true, authority));
     }
 
     public List<Veterinary> getAllVeterinary() {

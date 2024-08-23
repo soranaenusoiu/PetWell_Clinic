@@ -24,7 +24,7 @@ public class VeterinaryController {
 
     @PostMapping("/add")
     public void addVeterinary(@RequestBody NewVeterinary newVeterinary) {
-        veterinaryService.addVeterinary(newVeterinary.veterinary, newVeterinary.password);
+        veterinaryService.addVeterinary(newVeterinary.veterinary, newVeterinary.password, "ROLE_VETERINARY");
     }
 
     @GetMapping("getByName/{veterinaryName}")

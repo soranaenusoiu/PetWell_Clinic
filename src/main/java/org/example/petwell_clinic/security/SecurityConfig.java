@@ -26,7 +26,14 @@ public class SecurityConfig {
    // add support for JDBC and no more hardcoded users
     @Bean
     public UserDetailsManager usersDetailsManager(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource);
+        JdbcUserDetailsManager theUserDetailsManager = new JdbcUserDetailsManager(dataSource);
+
+        theUserDetailsManager.setUsersByUsernameQuery("select username, password, enabled from users where username=?");
+
+        theUserDetailsManager.setAuthoritiesByUsernameQuery("select username, authority from users where username=?");
+
+        return  theUserDetailsManager;
+
     }
 
 
@@ -36,10 +43,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(configurer ->
                         configurer
 //                        .requestMatchers(HttpMethod.GET, "/veterinary", "/pet", "/owner", "/appointment", "/schedule").hasRole("USER")
-                                .requestMatchers(HttpMethod.GET, "/veterinary/**", "/pet/**", "/owner/**", "/appointment/**", "/schedule/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.POST, "/pet/**", "/owner/**", "/appointment/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.PUT, "/pet/**", "/owner/**", "/appointment/**").hasRole("USER")
-                                .requestMatchers(HttpMethod.DELETE,"/pet/**", "/owner/**", "/appointment/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.GET, "/veterinary/**", "/pet/**", "/owner/**", "/appointment/**", "/schedule/**").hasAnyRole("USER", "ADMINISTRATOR", "VETERINARY")
+                                .requestMatchers(HttpMethod.POST, "/pet/**", "/owner/**", "/appointment/**").hasRole("ADMINISTRATOR")
+                                .requestMatchers(HttpMethod.PUT, "/pet/**", "/owner/**", "/appointment/**").hasRole("ADMINISTRATOR")
+                                .requestMatchers(HttpMethod.DELETE,"/pet/**", "/owner/**", "/appointment/**").hasRole("ADMINISTRATOR")
 
                                 .requestMatchers(HttpMethod.POST, "/veterinary/add", "/schedule/add").hasRole("ADMINISTRATOR")
                                 .requestMatchers(HttpMethod.PUT, "/veterinary/update", "/schedule/update").hasRole("ADMINISTRATOR")

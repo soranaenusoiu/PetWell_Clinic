@@ -24,6 +24,7 @@ public class User {
 
     private String password;
     private Boolean enabled = true;
+    private String authority;
 
 
 //    @OneToOne(mappedBy = "veterinary")

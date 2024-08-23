@@ -15,11 +15,17 @@ import java.util.List;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OwnerController {
 
+    @RequiredArgsConstructor
+    public static class NewOwner {
+        public Owner owner;
+        public String password;
+    }
+
     private final OwnerService ownerService;
 
     @PostMapping("/add")
-    public void addOwner(@RequestBody Owner owner) {
-        ownerService.addOwner(owner);
+    public void addOwner(@RequestBody NewOwner newOwner) {
+        ownerService.addOwner(newOwner.owner, newOwner.password, "ROLE_USER");
     }
 
     @GetMapping("/get")

@@ -2,9 +2,12 @@ package org.example.petwell_clinic.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.petwell_clinic.entity.Owner;
+import org.example.petwell_clinic.entity.User;
 import org.example.petwell_clinic.entity.Veterinary;
 import org.example.petwell_clinic.repository.OwnerRepository;
 import org.example.petwell_clinic.repository.PetRepository;
+import org.example.petwell_clinic.repository.UsersRepository;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +19,12 @@ public class OwnerService {
 
     private final OwnerRepository ownerRepository;
     private final PetRepository petRepository;
+    private final UsersRepository usersRepository;
 
-    public void addOwner(Owner owner) {
+    public void addOwner(Owner owner, String password, String authority) {
         ownerRepository.save(owner);
+        String pw_hash = BCrypt.hashpw(password, BCrypt.gensalt());
+        usersRepository.save(new User(owner.getEmail(), "{bcrypt}" + pw_hash, true, authority));
     }
 //    public String addPetToOwner(Long pet_id, Long owner_id) {
 //        Pet pet = petRepository.findById(pet_id)
